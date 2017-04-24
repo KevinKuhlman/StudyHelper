@@ -16,6 +16,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".SelectionPage"></activity>
+        <activity android:name=".StudySolo"></activity>
+        <activity android:name=".GroupStudy"></activity>
+        <activity android:name=".Lobby"></activity>
+
     </application>
 
 </manifest>

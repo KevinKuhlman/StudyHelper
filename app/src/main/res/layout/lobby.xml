@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/dark_blue">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/loadCardSet"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_margin="10dp"
+                android:layout_weight="1"
+                android:backgroundTint="@color/light_blue"
+                android:text="Load a Card Set" />
+
+            <Button
+                android:id="@+id/roomCode"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_margin="10dp"
+                android:layout_weight="1"
+                android:backgroundTint="@color/light_blue"
+                android:text="Room Code" />
+
+        </LinearLayout>
+
+        <EditText
+            android:id="@+id/card"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_gravity="center"
+            android:layout_margin="15dp"
+            android:layout_weight="4"
+            android:background="@color/white"
+            android:gravity="center"
+            android:text="@string/card_front"
+            android:textSize="20dp" />
+
+        <ExpandableListView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight = "1"
+            android:background = "@color/teal"
+            android:layout_marginLeft = "10dp"
+            android:layout_marginRight = "10dp"
+            android:layout_marginBottom = "10dp"
+            android:id="@+id/roomList">
+
+        </ExpandableListView>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1.5"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:orientation = "vertical"
+                android:layout_weight ="2">
+
+                <ImageButton
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight = "2"
+                    android:src = "@drawable/left_chevron"
+                    android:id = "@+id/previousCard"
+                    android:background = "@color/dark_blue"
+                    android:layout_marginTop = "5dp"
+                    android:scaleType="fitCenter"></ImageButton>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight = "1"
+                    android:text = "Previous Card"
+                    android:layout_gravity = "center"
+                    android:gravity = "center"/>
+
+            </LinearLayout>
+
+
+            <ToggleButton
+                android:id="@+id/frontButton"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="3"
+                android:backgroundTint="@color/light_blue"
+                android:checked="true"
+                android:textOff="Card Side: Back"
+                android:textOn="Card Side: Front"
+                android:textAllCaps="false"
+                android:textSize="24dp"></ToggleButton>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:orientation = "vertical"
+                android:layout_weight ="2">
+
+                <ImageButton
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight = "2"
+                    android:src = "@drawable/right_chevron"
+                    android:id = "@+id/nextCard"
+                    android:background = "@color/dark_blue"
+                    android:layout_marginTop = "5dp"
+                    android:scaleType="fitCenter"></ImageButton>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight = "1"
+                    android:text = "Next Card"
+                    android:layout_gravity = "center"
+                    android:gravity = "center"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>
