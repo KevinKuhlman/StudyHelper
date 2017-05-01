@@ -11,13 +11,22 @@
         android:orientation = "vertical"
         android:layout_weight = "3">
 
-        <ImageView
-            android:id="@+id/imageView"
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:text = "Create Your Account"
+            android:textStyle="bold"
+            android:textSize = "34sp"
+            android:textColor = "#DDFFDD"
             android:layout_margin="20dp"
-            android:src="@drawable/owl_picture"
-            android:layout_weight="5" />
+            android:layout_weight="1"
+            android:layout_gravity = "center"
+            android:gravity = "center"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"/>
 
         <TextView
             android:layout_width="match_parent"
@@ -43,6 +52,7 @@
             android:textColor="#C00"
             android:textSize="24sp"
             android:layout_marginLeft="10dp"
+            android:layout_marginTop = "10dp"
             android:layout_weight="1" />
 
         <EditText
@@ -51,46 +61,65 @@
             android:layout_height="0dp"
             android:layout_weight="1"
             android:background="@color/white"
+            android:layout_marginTop = "10dp"
             android:layout_margin = "10dp"
             android:inputType = "textPassword"/>
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:text="Confirm Password"
+            android:textColor="#C00"
+            android:textSize="24sp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop = "10dp"
+            android:layout_weight="1" />
+
+        <EditText
+            android:id="@+id/confirmPassword"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="@color/white"
+            android:layout_margin = "10dp"
+            android:inputType = "textPassword"/>
+
+
     </LinearLayout>
-
-
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:orientation = "horizontal"
-        android:layout_weight = "1">
+        android:layout_weight = "1"
+        android:orientation = "horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"/>
 
         <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight = "30dp"
-            android:id = "@+id/createAccount"
-            android:text = "Create an Account"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="3"
+            android:textSize = "24sp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight = "10dp"
+            android:layout_marginTop = "20dp"
+            android:layout_marginBottom = "20dp"
+            android:id = "@+id/submit"
+            android:text = "Submit"
             android:gravity = "center"
             android:backgroundTint="@color/light_blue"
             android:layout_gravity = "center"/>
 
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight = "30dp"
-            android:id = "@+id/login"
-            android:text = "Login"
-            android:gravity = "center"
-            android:backgroundTint="@color/light_blue"
-            android:layout_gravity = "center"/>
-
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"/>
 
     </LinearLayout>
+
 
 
 </LinearLayout>

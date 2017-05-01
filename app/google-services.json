@@ -1,0 +1,58 @@
+{
+  "project_info": {
+    "project_number": "237974120868",
+    "firebase_url": "https://studyhelper-36b18.firebaseio.com",
+    "project_id": "studyhelper-36b18",
+    "storage_bucket": "studyhelper-36b18.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:237974120868:android:fc4bdbcfccf3fc98",
+        "android_client_info": {
+          "package_name": "com.example.kevin.studyhelper"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "237974120868-mpa041999p5vi59asfm62l3kv2e1s3qo.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.kevin.studyhelper",
+            "certificate_hash": "aaa5ef3c10492b778eed32d60461673672016ec6"
+          }
+        },
+        {
+          "client_id": "237974120868-fnqbbf02rc120iggmos9jhpf2hcrg8s8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCYmonRRbq_o_7bRa19d7L-IaXS-ZOjC3M"
+        },
+        {
+          "current_key": "AIzaSyAXIk_MC_KOt0vPewSoF0bkiopIgFeEgq0"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "237974120868-fnqbbf02rc120iggmos9jhpf2hcrg8s8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

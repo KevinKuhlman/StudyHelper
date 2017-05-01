@@ -20,6 +20,7 @@
         <activity android:name=".StudySolo"></activity>
         <activity android:name=".GroupStudy"></activity>
         <activity android:name=".Lobby"></activity>
+        <activity android:name = ".NewLoginPage"></activity>
 
     </application>
 
