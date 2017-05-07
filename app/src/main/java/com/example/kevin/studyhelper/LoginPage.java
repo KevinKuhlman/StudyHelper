@@ -16,6 +16,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class LoginPage extends AppCompatActivity {
@@ -25,7 +26,7 @@ public class LoginPage extends AppCompatActivity {
     private FirebaseDatabase database;
     private EditText username;
     private EditText password;
-    private HashMap<String, String> usersMap;
+    private HashMap<String, User> usersMap;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,7 +63,7 @@ public class LoginPage extends AppCompatActivity {
                     public void onDataChange(DataSnapshot dataSnapshot) {
 
                         //create a hashmap to store all current user info
-                        usersMap = new HashMap<String, String>();
+                        usersMap = new HashMap<String, User>();
 
                         //context needed for future toast operations
                         Context context = getApplicationContext();
@@ -70,13 +71,23 @@ public class LoginPage extends AppCompatActivity {
                         //store all current user data into the hashmap
                         for(DataSnapshot ds : dataSnapshot.getChildren()){
                             User user = ds.getValue(User.class);
-                            usersMap.put(user.getUsername(), user.getPassword());
+                            DataSnapshot card_setsSnapshot = ds.child("card_sets");
+                            for(DataSnapshot card_set : card_setsSnapshot.getChildren()){
+                                ArrayList<Card> cardsSet = new ArrayList<Card>();
+                                for(DataSnapshot card : card_set.getChildren()){
+                                    Card newCard = card.getValue(Card.class);
+                                    cardsSet.add(newCard);
+                                }
+                                user.getCardSets().add(cardsSet);
+                            }
+                            usersMap.put(user.getUsername(), user);
+
                         }
 
                         //check if the input username matches any stored values
                         if(usersMap.containsKey(possibleUsername)){
                             //check to see if input password matches the password for the stored username
-                            if(usersMap.get(possibleUsername).equals(possiblePassword)){
+                            if(usersMap.get(possibleUsername).getPassword().equals(possiblePassword)){
                                 //proceed to the user selection page
                                 Intent myIntent = new Intent(view.getContext(), SelectionPage.class);
                                 startActivityForResult(myIntent, 0);
