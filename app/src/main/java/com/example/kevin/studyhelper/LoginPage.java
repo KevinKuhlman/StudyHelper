@@ -16,10 +16,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
-public class LoginPage extends AppCompatActivity {
+public class LoginPage extends AppCompatActivity{
 
     //Declaration of objects
     private DatabaseReference myRef;
@@ -73,10 +72,15 @@ public class LoginPage extends AppCompatActivity {
                             User user = ds.getValue(User.class);
                             DataSnapshot card_setsSnapshot = ds.child("card_sets");
                             for(DataSnapshot card_set : card_setsSnapshot.getChildren()){
-                                ArrayList<Card> cardsSet = new ArrayList<Card>();
+                                CardSet cardsSet = new CardSet();
                                 for(DataSnapshot card : card_set.getChildren()){
-                                    Card newCard = card.getValue(Card.class);
-                                    cardsSet.add(newCard);
+                                    if(card.hasChildren()){
+                                        Card newCard = card.getValue(Card.class);
+                                        cardsSet.getCards().add(newCard);
+                                    }else{
+                                        cardsSet.name = card.getValue().toString();
+                                    }
+
                                 }
                                 user.getCardSets().add(cardsSet);
                             }
@@ -89,7 +93,10 @@ public class LoginPage extends AppCompatActivity {
                             //check to see if input password matches the password for the stored username
                             if(usersMap.get(possibleUsername).getPassword().equals(possiblePassword)){
                                 //proceed to the user selection page
+
+                                User user = usersMap.get(possibleUsername);
                                 Intent myIntent = new Intent(view.getContext(), SelectionPage.class);
+                                myIntent.putExtra("User", user);
                                 startActivityForResult(myIntent, 0);
                             }else {
                                 //present message stating the password is incorrect

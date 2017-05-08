@@ -124,7 +124,11 @@ public class NewLoginPage extends AppCompatActivity{
                             myRef.setValue(newUser);
 
                             //go to the next page
+                            User user = new User();
+                            user.setUsername(possibleUsername);
+                            user.setPassword(possiblePassword);
                             Intent myIntent = new Intent(view.getContext(), SelectionPage.class);
+                            myIntent.putExtra("User", user);
                             startActivityForResult(myIntent, 0);
 
                         }

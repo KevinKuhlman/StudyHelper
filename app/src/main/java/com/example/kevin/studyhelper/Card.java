@@ -1,10 +1,12 @@
 package com.example.kevin.studyhelper;
 
+import java.io.Serializable;
+
 /**
  * Created by Kevin on 5/1/2017.
  */
 
-public class Card {
+public class Card implements Serializable {
 
     private String front;
     private String back;

@@ -1,28 +1,31 @@
 package com.example.kevin.studyhelper;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * Created by Kevin on 4/30/2017.
  */
 
-public class User {
+@SuppressWarnings("serial")
+
+public class User implements Serializable {
 
     private String username;
     private String password;
 
-    ArrayList<ArrayList<Card>> cardSets;
+    ArrayList<CardSet> cardSets;
 
     public User(){
 
-        cardSets = new ArrayList<ArrayList<Card>>();
+        cardSets = new ArrayList<CardSet>();
     }
 
     public User(String username, String password){
 
         this.username = username;
         this.password = password;
-        cardSets = new ArrayList<ArrayList<Card>>();
+        cardSets = new ArrayList<CardSet>();
     }
 
 
@@ -42,11 +45,12 @@ public class User {
         this.password = password;
     }
 
-    public ArrayList<ArrayList<Card>> getCardSets() {
+    public ArrayList<CardSet> getCardSets() {
         return cardSets;
     }
 
-    public void setCardSets(ArrayList<ArrayList<Card>> cardSets) {
+    public void setCardSets(ArrayList<CardSet> cardSets) {
         this.cardSets = cardSets;
     }
+
 }
