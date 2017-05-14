@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
@@ -55,58 +56,44 @@ public class LoginPage extends AppCompatActivity{
                 final String possiblePassword = password.getText().toString();
 
                 //add a value event listener for the database to access data
-                myRef.addValueEventListener(new ValueEventListener() {
+                myRef.addListenerForSingleValueEvent(new ValueEventListener() {
 
                     @Override
                     //check to see if the input data matches any stored values
                     public void onDataChange(DataSnapshot dataSnapshot) {
 
-                        //create a hashmap to store all current user info
-                        usersMap = new HashMap<String, User>();
-
                         //context needed for future toast operations
                         Context context = getApplicationContext();
+                        User user = new User();
 
                         //store all current user data into the hashmap
                         for(DataSnapshot ds : dataSnapshot.getChildren()){
-                            User user = ds.getValue(User.class);
-                            DataSnapshot card_setsSnapshot = ds.child("card_sets");
-                            for(DataSnapshot card_set : card_setsSnapshot.getChildren()){
-                                CardSet cardsSet = new CardSet();
-                                for(DataSnapshot card : card_set.getChildren()){
-                                    if(card.hasChildren()){
-                                        Card newCard = card.getValue(Card.class);
-                                        cardsSet.getCards().add(newCard);
-                                    }else{
-                                        cardsSet.name = card.getValue().toString();
+                            User tempUser = ds.getValue(User.class);
+                            if(tempUser.getUsername().equals(possibleUsername) && tempUser.getPassword().equals(possiblePassword)){
+                                DataSnapshot card_setsSnapshot = ds.child("card_sets");
+                                for(DataSnapshot card_set : card_setsSnapshot.getChildren()){
+                                    CardSet cardsSet = new CardSet();
+                                    for(DataSnapshot card : card_set.getChildren()){
+                                        Log.d("Tag", card.getValue().toString());
+                                        if(card.getKey().equals("name")){
+                                            cardsSet.setName(card.getValue().toString());
+                                        }else{
+                                            Card newCard = card.getValue(Card.class);
+                                            cardsSet.getCards().add(newCard);
+                                        }
                                     }
-
+                                    tempUser.getCardSets().add(cardsSet);
                                 }
-                                user.getCardSets().add(cardsSet);
+                                user = tempUser;
                             }
-                            usersMap.put(user.getUsername(), user);
-
                         }
 
-                        //check if the input username matches any stored values
-                        if(usersMap.containsKey(possibleUsername)){
-                            //check to see if input password matches the password for the stored username
-                            if(usersMap.get(possibleUsername).getPassword().equals(possiblePassword)){
-                                //proceed to the user selection page
-
-                                User user = usersMap.get(possibleUsername);
-                                Intent myIntent = new Intent(view.getContext(), SelectionPage.class);
-                                myIntent.putExtra("User", user);
-                                startActivityForResult(myIntent, 0);
-                            }else {
-                                //present message stating the password is incorrect
-                                Toast toast = Toast.makeText(context, "Incorrect Password", Toast.LENGTH_SHORT);
-                                toast.setGravity(Gravity.CENTER_VERTICAL, 0,0);
-                                toast.show();
-                            }
-                        }else{
-                            //present message stating the username is incorrect
-                            Toast toast = Toast.makeText(context, "Username Does Not Exist", Toast.LENGTH_SHORT);
+                        if(user!=null) {
+                            Intent myIntent = new Intent(view.getContext(), SelectionPage.class);
+                            myIntent.putExtra("User", user);
+                            startActivityForResult(myIntent, 0);
+                        }else {
+                            Toast toast = Toast.makeText(context, "Username or Password is incorrect", Toast.LENGTH_SHORT);
                             toast.setGravity(Gravity.CENTER_VERTICAL, 0,0);
                             toast.show();
                         }

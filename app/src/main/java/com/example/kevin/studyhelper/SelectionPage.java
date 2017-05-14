@@ -3,9 +3,11 @@ package com.example.kevin.studyhelper;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 /**
  * Created by Kevin on 4/24/2017.
@@ -38,9 +40,14 @@ public class SelectionPage extends AppCompatActivity {
         groupStudyButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent myIntent = new Intent(view.getContext(), GroupStudy.class);
+
+                Toast toast = Toast.makeText(getApplicationContext(), "Sorry, not yet implemented", Toast.LENGTH_SHORT);
+                toast.setGravity(Gravity.CENTER_VERTICAL, 0,0);
+                toast.show();
+                /*Intent myIntent = new Intent(view.getContext(), GroupStudy.class);
                 myIntent.putExtra("User", user);
                 startActivityForResult(myIntent, 0);
+                */
             }
         });
     }

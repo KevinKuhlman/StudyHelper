@@ -13,23 +13,23 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1"
+            android:layout_weight=".75"
             android:orientation="horizontal">
 
             <Button
                 android:id="@+id/createNewSet"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_margin="10dp"
+                android:layout_margin="7dp"
                 android:layout_weight="1"
                 android:backgroundTint="@color/light_blue"
-                android:text="Create New Set" />
+                android:text="Create Set" />
 
             <Button
                 android:id="@+id/saveSet"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_margin="10dp"
+                android:layout_margin="7dp"
                 android:layout_weight="1"
                 android:backgroundTint="@color/light_blue"
                 android:text="Save Set" />
@@ -38,24 +38,84 @@
                 android:id="@+id/loadSet"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_margin="10dp"
+                android:layout_margin="7dp"
                 android:layout_weight="1"
                 android:backgroundTint="@color/light_blue"
                 android:text="Load a Set" />
 
         </LinearLayout>
 
-            <EditText
-                android:id="@+id/card"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_gravity="center"
-                android:layout_margin="15dp"
-                android:layout_weight="4"
-                android:background="@color/white"
-                android:gravity="center"
-                android:text="@string/card_front"
-                android:textSize="20dp" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight=".75"
+            android:orientation = "horizontal">
+
+            <Button
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight = "1"
+                android:id = "@+id/addButton"
+                android:backgroundTint="@color/light_blue"
+                android:text = "Add Card"
+                android:layout_marginLeft="5dp"
+                />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_weight="1.5"
+                    android:text = "Card 0/0"
+                    android:layout_gravity="center"
+                    android:textStyle="bold"
+                    android:id = "@+id/seekText"
+                    android:textSize="16dp"
+                    android:gravity="bottom"/>
+
+                <SeekBar
+                    android:id="@+id/seekBar"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:max="0"
+                    android:progress="0"
+                    android:secondaryProgress="0" />
+
+
+            </LinearLayout>
+
+            <Button
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight = "1"
+                android:id = "@+id/removeButton"
+                android:backgroundTint="@color/light_blue"
+                android:text = "Remove Card"
+                android:layout_marginRight="5dp"
+                />
+
+
+
+        </LinearLayout>
+
+
+        <EditText
+            android:id="@+id/card"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_gravity="center"
+            android:layout_margin="15dp"
+            android:layout_weight="3"
+            android:background="@color/white"
+            android:gravity="center"
+            android:hint="@string/card_front"
+            android:textSize="20dp" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -97,11 +157,11 @@
                 android:layout_weight="3"
                 android:backgroundTint="@color/light_blue"
                 android:checked="true"
-                android:textOff="Card Side: Back"
-                android:textOn="Card Side: Front"
+                android:textOff="Card Side:\n Back"
+                android:textOn="Card Side:\n Front"
                 android:textAllCaps="false"
-                android:layout_marginBottom = "10dp"
-                android:textSize="24dp"></ToggleButton>
+                android:layout_marginBottom = "5dp"
+                android:textSize="18dp"></ToggleButton>
 
             <LinearLayout
                 android:layout_width="0dp"

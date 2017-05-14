@@ -66,7 +66,7 @@ public class NewLoginPage extends AppCompatActivity{
                 final String possibleConfirmPassword = confirmPassword.getText().toString();
 
                 //create a listener for updating account information
-                myRef.addValueEventListener(new ValueEventListener() {
+                myRef.addListenerForSingleValueEvent(new ValueEventListener() {
 
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {

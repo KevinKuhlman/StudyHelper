@@ -19,11 +19,9 @@ public class CardSet implements Serializable {
 
     }
 
-    public CardSet(ArrayList<Card> cards, String name){
-        this.cards = cards;
-        this.name = name;
-        cards = new ArrayList<Card>();
+    public CardSet(String name){
 
+        this.name = name;
     }
 
     public ArrayList<Card> getCards() {
