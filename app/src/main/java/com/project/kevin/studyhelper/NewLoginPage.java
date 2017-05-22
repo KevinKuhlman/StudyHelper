@@ -1,4 +1,4 @@
-package com.example.kevin.studyhelper;
+package com.project.kevin.studyhelper;
 
 import android.content.Context;
 import android.content.Intent;

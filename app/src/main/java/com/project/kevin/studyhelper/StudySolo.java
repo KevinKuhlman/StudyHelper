@@ -1,11 +1,10 @@
-package com.example.kevin.studyhelper;
+package com.project.kevin.studyhelper;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
@@ -165,9 +164,7 @@ public class StudySolo extends AppCompatActivity {
         cardSide.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d("Tag", "test");
                 if(cardSet!=null){
-                    Log.d("Tag", "test");
                     saveCard();
                     cardSide.setChecked(!side);
                     side = !side;

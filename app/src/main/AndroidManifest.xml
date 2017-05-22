@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.kevin.studyhelper">
+    package="com.project.kevin.studyhelper">
 
     <application
         android:allowBackup="true"
@@ -9,18 +9,18 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".LoginPage">
+        <activity android:name="com.project.kevin.studyhelper.LoginPage">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".SelectionPage"></activity>
-        <activity android:name=".StudySolo"></activity>
-        <activity android:name=".GroupStudy"></activity>
-        <activity android:name=".Lobby"></activity>
-        <activity android:name = ".NewLoginPage"></activity>
+        <activity android:name="com.project.kevin.studyhelper.SelectionPage"></activity>
+        <activity android:name="com.project.kevin.studyhelper.StudySolo"></activity>
+        <activity android:name="com.project.kevin.studyhelper.GroupStudy"></activity>
+        <activity android:name="com.project.kevin.studyhelper.Lobby"></activity>
+        <activity android:name = "com.project.kevin.studyhelper.NewLoginPage"></activity>
 
     </application>
 

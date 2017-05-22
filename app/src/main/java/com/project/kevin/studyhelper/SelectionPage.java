@@ -1,13 +1,11 @@
-package com.example.kevin.studyhelper;
+package com.project.kevin.studyhelper;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 /**
  * Created by Kevin on 4/24/2017.
@@ -41,13 +39,10 @@ public class SelectionPage extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                Toast toast = Toast.makeText(getApplicationContext(), "Sorry, not yet implemented", Toast.LENGTH_SHORT);
-                toast.setGravity(Gravity.CENTER_VERTICAL, 0,0);
-                toast.show();
-                /*Intent myIntent = new Intent(view.getContext(), GroupStudy.class);
+                Intent myIntent = new Intent(view.getContext(), GroupStudy.class);
                 myIntent.putExtra("User", user);
                 startActivityForResult(myIntent, 0);
-                */
+
             }
         });
     }

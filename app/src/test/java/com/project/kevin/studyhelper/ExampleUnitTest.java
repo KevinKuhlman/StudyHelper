@@ -1,4 +1,4 @@
-package com.example.kevin.studyhelper;
+package com.project.kevin.studyhelper;
 
 import org.junit.Test;
 

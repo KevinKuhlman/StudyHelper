@@ -1,10 +1,9 @@
-package com.example.kevin.studyhelper;
+package com.project.kevin.studyhelper;
 
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
@@ -74,7 +73,6 @@ public class LoginPage extends AppCompatActivity{
                                 for(DataSnapshot card_set : card_setsSnapshot.getChildren()){
                                     CardSet cardsSet = new CardSet();
                                     for(DataSnapshot card : card_set.getChildren()){
-                                        Log.d("Tag", card.getValue().toString());
                                         if(card.getKey().equals("name")){
                                             cardsSet.setName(card.getValue().toString());
                                         }else{
