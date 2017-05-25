@@ -130,6 +130,8 @@ public class StudySolo extends AppCompatActivity {
                         myRef.child("card" + (i+1)).setValue(cardSet.getCards().get(i));
                     }
                     myRef.child("name").setValue(cardSet.getName());
+
+                    myRef = database.getReference("users");
                 }
 
             }
@@ -189,6 +191,7 @@ public class StudySolo extends AppCompatActivity {
                         side = true;
                         seekText.setText(cardSet.getName() + ": Card " + (cardIndex + 1) + "/" + cardSet.getCards().size());
                         seekBar.setProgress(cardIndex);
+                        cardSide.setChecked(true);
                         updateCard();
                     }
 
@@ -211,6 +214,7 @@ public class StudySolo extends AppCompatActivity {
                         side = true;
                         seekText.setText(cardSet.getName() + ": Card " + (cardIndex + 1) + "/" + cardSet.getCards().size());
                         seekBar.setProgress(cardIndex);
+                        cardSide.setChecked(true);
                         updateCard();
                     }
 
@@ -249,6 +253,7 @@ public class StudySolo extends AppCompatActivity {
                 seekBar.setMax(seekBar.getMax() + 1);
                 seekBar.setProgress(seekBar.getMax());
                 seekText.setText(cardSet.getName() + ": Card " + cardSet.getCards().size() + "/" + cardSet.getCards().size());
+                cardSide.setChecked(true);
                 updateCard();
             }
         });
