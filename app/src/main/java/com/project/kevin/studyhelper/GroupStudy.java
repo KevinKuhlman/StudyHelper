@@ -90,6 +90,7 @@ public class GroupStudy extends AppCompatActivity {
                             ArrayList<String> lobbyList = new ArrayList<String>();
                             for(DataSnapshot ds: dataSnapshot.getChildren()){
                                 lobbyList.add(ds.getKey().toString());
+
                             }
 
                             String[] lobbyStringList = new String[lobbyList.size()];

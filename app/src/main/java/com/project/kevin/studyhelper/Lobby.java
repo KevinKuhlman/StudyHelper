@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
@@ -41,6 +40,8 @@ public class Lobby extends AppCompatActivity {
     Button leaveLobby;
     Button readyButton;
 
+    ValueEventListener listener;
+
     User user;
     ListView listView;
     String lobbyName;
@@ -54,7 +55,6 @@ public class Lobby extends AppCompatActivity {
         database = FirebaseDatabase.getInstance();
         myIntent = getIntent();
 
-
         user = (User) myIntent.getSerializableExtra("User");
         lobbyName = (String) myIntent.getSerializableExtra("Lobby");
         myRef = database.getReference("lobbies");
@@ -63,7 +63,7 @@ public class Lobby extends AppCompatActivity {
         TextView textView = (TextView) findViewById(R.id.lobbyName);
         textView.setText(lobbyName);
 
-        myRef.addValueEventListener(new ValueEventListener() {
+        listener = myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if(user !=null){
@@ -291,8 +291,6 @@ public class Lobby extends AppCompatActivity {
             }
         }
 
-        Log.d("Tag", check+"");
-
         if(check){
 
             final TextView status = (TextView) findViewById(R.id.status);
@@ -300,12 +298,15 @@ public class Lobby extends AppCompatActivity {
             CountDownTimer cdt = new CountDownTimer(6000, 1000) {
                 @Override
                 public void onTick(long millisUntilFinished) {
-                    status.setText(millisUntilFinished/1000 + " Seconds till Quiz Begins");
+                    status.setText(millisUntilFinished/1000 + " Seconds till moving to Quiz");
                 }
 
                 @Override
                 public void onFinish() {
+                    myRef.removeEventListener(listener);
                     Intent myIntent = new Intent(getApplicationContext(), Quiz.class);
+                    myIntent.putExtra("Lobby", lobbyName);
+                    myIntent.putExtra("User", user);
                     startActivityForResult(myIntent, 0);
                 }
             }.start();

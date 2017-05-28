@@ -21,13 +21,16 @@
             android:name="com.project.kevin.studyhelper.StudySolo"
             android:noHistory="true">
         </activity>
-        <activity android:name="com.project.kevin.studyhelper.GroupStudy"></activity>
+        <activity android:name="com.project.kevin.studyhelper.GroupStudy"
+            android:noHistory="true"></activity>
         <activity
             android:name="com.project.kevin.studyhelper.Lobby"
             android:noHistory="true">
         </activity>
-        <activity android:name = "com.project.kevin.studyhelper.NewLoginPage"></activity>
-        <activity android:name = "com.project.kevin.studyhelper.Quiz"></activity>
+        <activity android:name = "com.project.kevin.studyhelper.NewLoginPage"
+            ></activity>
+        <activity android:name = "com.project.kevin.studyhelper.Quiz"
+            android:noHistory="true"></activity>
 
     </application>
 

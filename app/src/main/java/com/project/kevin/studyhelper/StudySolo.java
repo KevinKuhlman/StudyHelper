@@ -125,6 +125,7 @@ public class StudySolo extends AppCompatActivity {
                 if(cardSet != null){
                     saveCard();
 
+                    user.getCardSets().add(cardSet);
                     myRef = myRef.child(user.getUsername()).child("card_sets").child(cardSet.getName());
                     for(int i = 0; i<cardSet.getCards().size(); i++){
                         myRef.child("card" + (i+1)).setValue(cardSet.getCards().get(i));
@@ -340,6 +341,27 @@ public class StudySolo extends AppCompatActivity {
         addCard.setEnabled(false);
         removeCard.setEnabled(false);
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(StudySolo.this);
+        alertDialog.setTitle("Leave Solo Study");
+        alertDialog.setMessage("Are you sure you want to leave the Solo Study?");
+        alertDialog.setPositiveButton("Leave", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+
+                Intent myIntent = new Intent(getApplicationContext(), SelectionPage.class);
+                myIntent.putExtra("User", user);
+                startActivityForResult(myIntent, 0);
+            }
+        });
+        alertDialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                dialog.cancel();
+            }
+        });
+        alertDialog.show();
     }
 
 }
