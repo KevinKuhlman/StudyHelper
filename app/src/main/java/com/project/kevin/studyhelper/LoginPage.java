@@ -86,7 +86,7 @@ public class LoginPage extends AppCompatActivity{
                             }
                         }
 
-                        if(user!=null) {
+                        if(!user.getUsername().equals("")) {
                             Intent myIntent = new Intent(view.getContext(), SelectionPage.class);
                             myIntent.putExtra("User", user);
                             startActivityForResult(myIntent, 0);

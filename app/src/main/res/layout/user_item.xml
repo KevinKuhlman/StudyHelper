@@ -41,6 +41,7 @@
             android:layout_weight="1"
             android:text = "Ready"
             android:textSize="28dp"
+            android:clickable="false"
             android:id = "@+id/ready"/>
 
 

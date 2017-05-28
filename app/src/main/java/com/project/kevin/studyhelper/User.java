@@ -19,6 +19,8 @@ public class User implements Serializable {
     public User(){
 
         cardSets = new ArrayList<CardSet>();
+        username = "";
+        password = "";
     }
 
     public User(String username, String password){

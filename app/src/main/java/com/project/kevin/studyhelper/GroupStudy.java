@@ -56,16 +56,9 @@ public class GroupStudy extends AppCompatActivity {
                             myRef = database.getReference("lobbies");
                         }
                         myRef = myRef.child(user.getUsername() + "'s Lobby");
-                        myRef = myRef.child(user.getUsername());
-                        HashMap<String, String> newLobby = new HashMap<String, String>();
-                        newLobby.put("username", user.getUsername());
-                        newLobby.put("cardSet", "");
-                        myRef.setValue(newLobby);
-
-
                         Intent myIntent = new Intent(view.getContext(), Lobby.class);
                         myIntent.putExtra("User", user);
-                        myIntent.putExtra("Lobby", user.getUsername());
+                        myIntent.putExtra("Lobby", user.getUsername() + "'s Lobby");
                         startActivityForResult(myIntent, 0);
                     }
 
