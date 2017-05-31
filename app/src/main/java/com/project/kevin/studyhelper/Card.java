@@ -6,6 +6,8 @@ import java.io.Serializable;
  * Created by Kevin on 5/1/2017.
  */
 
+
+//Card object - simulates a note/study card
 public class Card implements Serializable {
 
     private String front;

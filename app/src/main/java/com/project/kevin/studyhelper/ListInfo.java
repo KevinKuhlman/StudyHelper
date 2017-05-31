@@ -4,6 +4,8 @@ package com.project.kevin.studyhelper;
  * Created by Kevin on 5/26/2017.
  */
 
+
+//Class used for organization of information for UserArrayAdapter
 public class ListInfo {
 
     String username;

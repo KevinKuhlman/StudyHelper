@@ -23,6 +23,7 @@ import com.google.firebase.database.FirebaseDatabase;
  * Created by Kevin on 4/24/2017.
  */
 
+//Solo Study view, allows creation of cards/updates/saving
 public class StudySolo extends AppCompatActivity {
 
 
@@ -70,6 +71,7 @@ public class StudySolo extends AppCompatActivity {
         addCard.setEnabled(false);
         removeCard.setEnabled(false);
 
+        //Asks user for name of a new set and creates a new card set for the user
         createNewSet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -80,18 +82,19 @@ public class StudySolo extends AppCompatActivity {
                 LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
                 input.setLayoutParams(lp);
                 builder.setView(input);
-                final Button submit = new Button(StudySolo.this);
                 builder.setPositiveButton("Submit", new DialogInterface.OnClickListener() {
 
                     public void onClick(DialogInterface dialog, int whichButton) {
                         String newCardSetName = input.getText().toString();
                         boolean check = true;
+                        //check if name is already taken
                         for (int i = 0; i < user.getCardSets().size(); i++) {
                             if (user.getCardSets().get(i).getName().equals(newCardSetName)) {
                                 check = false;
                             }
                         }
 
+                        //creates new card set if name isnt taken
                         if (check) {
                             cardSet = new CardSet();
                             cardSet.name = newCardSetName;
@@ -118,6 +121,7 @@ public class StudySolo extends AppCompatActivity {
             }
         });
 
+        //stores current set into the database
         saveSet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -138,6 +142,7 @@ public class StudySolo extends AppCompatActivity {
             }
         });
 
+        //creates list of stored sets and displays them for user to load
         loadSet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -164,6 +169,7 @@ public class StudySolo extends AppCompatActivity {
             }
         });
 
+        //flips the card's side - displays back or front text
         cardSide.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -176,6 +182,8 @@ public class StudySolo extends AppCompatActivity {
             }
         });
 
+        //changes currentCard to the next card in the list
+        //if its the last card, returns to the beginning
         nextCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -200,6 +208,8 @@ public class StudySolo extends AppCompatActivity {
             }
         });
 
+        //changes currentCard to the previous card in the list
+        //if its the first card, sends it to the end of the list
         previousCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -223,6 +233,7 @@ public class StudySolo extends AppCompatActivity {
             }
         });
 
+        //allows the user to skip around through their cards
         seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             int progressChanged = 0;
 
@@ -245,6 +256,7 @@ public class StudySolo extends AppCompatActivity {
             }
         });
 
+        //adds a new card to the end of the current set
         addCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -259,6 +271,7 @@ public class StudySolo extends AppCompatActivity {
             }
         });
 
+        //removes the currently selected card after prompting the user
         removeCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -298,6 +311,7 @@ public class StudySolo extends AppCompatActivity {
         });
     }
 
+    //changes the current cardSet to a different card set based on user choice
     protected void updateCardSet(int item){
 
         cardSet = user.getCardSets().get(item);
@@ -310,6 +324,7 @@ public class StudySolo extends AppCompatActivity {
         updateCard();
     }
 
+    //updates the card's value
     protected void updateCard(){
 
         currentCard = cardSet.getCards().get(cardIndex);
@@ -319,6 +334,7 @@ public class StudySolo extends AppCompatActivity {
             textBox.setText(currentCard.getBack());
     }
 
+    //saves the current card
     protected void saveCard(){
         if(side)
             currentCard.setFront(textBox.getText().toString());
@@ -326,6 +342,7 @@ public class StudySolo extends AppCompatActivity {
             currentCard.setBack(textBox.getText().toString());
     }
 
+    //deletes the card set if no cards remain
     protected void deleteCardSet(){
 
         cardSet = null;
@@ -344,6 +361,7 @@ public class StudySolo extends AppCompatActivity {
     }
 
     @Override
+    //override on back pressed to send SelectionPage user info
     public void onBackPressed() {
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(StudySolo.this);
         alertDialog.setTitle("Leave Solo Study");

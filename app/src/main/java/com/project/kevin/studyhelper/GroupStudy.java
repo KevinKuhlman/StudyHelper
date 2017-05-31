@@ -23,6 +23,7 @@ import java.util.HashMap;
  * Created by Kevin on 4/24/2017.
  */
 
+//Allows user to choose between joining a lobby or creating their own lobby
 public class GroupStudy extends AppCompatActivity {
 
     private FirebaseDatabase database;
@@ -34,11 +35,13 @@ public class GroupStudy extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.group_study);
 
+        //initializes values
         database = FirebaseDatabase.getInstance();
         myRef = database.getReference("users");
         myIntent = getIntent();
         user = (User) myIntent.getSerializableExtra("User");
 
+        //create a lobby button and action listener
         Button createLobbyButton = (Button) findViewById(R.id.createALobby);
         createLobbyButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -48,6 +51,8 @@ public class GroupStudy extends AppCompatActivity {
 
                 myRef.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
+                    //if there are lobbies already; add to the lobbies in the database
+                    //if not, add "lobbies" to the database and add a new lobby to it
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         if(dataSnapshot.hasChild("lobbies")){
                             myRef = database.getReference("lobbies");
@@ -71,20 +76,24 @@ public class GroupStudy extends AppCompatActivity {
             }
         });
 
+        //join a lobby button and action listener
         Button joinLobbyButton = (Button) findViewById(R.id.joinAnExistingLobby);
         joinLobbyButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
                 myRef = database.getReference();
+                //checker prevents Toast from showing in rare scenarios
                 final boolean[] checker = {true};
 
+                //get stored lobbies and show them in an alert dialog
                 myRef.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         if(!checker[0]){
 
                         }else if(dataSnapshot.hasChild("lobbies")){
+                            //Get lobby reference and add all of its children to the a list
                             myRef = database.getReference("lobbies");
                             dataSnapshot = dataSnapshot.child("lobbies");
                             ArrayList<String> lobbyList = new ArrayList<String>();
@@ -96,13 +105,15 @@ public class GroupStudy extends AppCompatActivity {
                             String[] lobbyStringList = new String[lobbyList.size()];
                             lobbyStringList = lobbyList.toArray(lobbyStringList);
 
-
+                            //create an alert dialog with all of the available lobbies
                             AlertDialog.Builder builder = new AlertDialog.Builder(GroupStudy.this);
                             builder.setTitle("Choose Lobby to Join");
                             final String[] finalLobbyStringList = lobbyStringList;
                             builder.setItems(lobbyStringList, new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int item) {
 
+                                    //Add basic user info to the chosen lobby
+                                    //detailed user info added in the Lobby page
                                     myRef = myRef.child(finalLobbyStringList[item]);
                                     myRef = myRef.child(user.getUsername());
                                     HashMap<String, String> newLobby = new HashMap<String, String>();
@@ -112,6 +123,7 @@ public class GroupStudy extends AppCompatActivity {
 
                                     checker[0] = false;
 
+                                    //switch to Lobby view
                                     Intent myIntent = new Intent(GroupStudy.this.getApplicationContext(), Lobby.class);
                                     myIntent.putExtra("User", user);
                                     myIntent.putExtra("Lobby", finalLobbyStringList[item]);

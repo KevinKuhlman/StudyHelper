@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -52,6 +51,7 @@ public class Quiz extends AppCompatActivity{
     private Button leaveButton;
 
     @Override
+    //Quiz activity - has users input their answers to the card questions
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.quiz);
@@ -82,6 +82,8 @@ public class Quiz extends AppCompatActivity{
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                //check is 2 only on initialization of the Quiz class
+                //retrieved stored user information from the database
                 if(check==2) {
                     for (DataSnapshot ds : dataSnapshot.getChildren()) {
                         User tempUser = ds.getValue(User.class);
@@ -107,7 +109,7 @@ public class Quiz extends AppCompatActivity{
                     check = 1;
                     generateQuiz();
                 }else if (check==1){
-                    Log.d("Tag", check+"");
+                    //updates the Quiz to display user answers at appropriate times
                     userInfoList = new ArrayList<QuizInfo>();
                     for (DataSnapshot ds : dataSnapshot.getChildren()) {
                         if(ds.hasChild("quiz")){
@@ -128,6 +130,7 @@ public class Quiz extends AppCompatActivity{
             }
         });
 
+        //Button to leave the lobby, same functionality as in Lobby
         leaveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -159,19 +162,23 @@ public class Quiz extends AppCompatActivity{
 
     }
 
+    //Generate Quiz based on retrieved user information
     protected void generateQuiz(){
 
+        //create Quiz Info list for the listview
         for(int i = 0; i<userList.size(); i++){
             userInfoList.add(new QuizInfo(userList.get(i).getUsername(),""));
         }
         updateListView();
 
+        //get the chosen card sets from each user
         for(int i=0; i<cardSetList.size(); i++){
             for(int j=0; j<cardSetList.get(i).getCards().size(); j++){
                 quizCardSet.getCards().add(cardSetList.get(i).getCards().get(j));
             }
         }
 
+        //10 second countdown before Quiz begins
         CountDownTimer cdt = new CountDownTimer(10000, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
@@ -187,14 +194,17 @@ public class Quiz extends AppCompatActivity{
 
     }
 
+    //updates the list view for the Quiz
     protected void updateListView(){
         quizArrayAdapter = new QuizArrayAdapter(this, R.layout.quiz_item, userInfoList);
         listView.setAdapter(quizArrayAdapter);
 
     }
 
+    //Chooses a card and displays it
     protected void runQuiz(){
 
+        //choose random card and set it to be shown in the Quiz
         Random random = new Random();
         int next = random.nextInt(count);
 
@@ -202,6 +212,7 @@ public class Quiz extends AppCompatActivity{
         card.setText(currentCard.getFront());
         quizCardSet.getCards().remove(next);
 
+        //Stores a quizAnswer value for current users for displaying their answers
         myRef = database.getReference("lobbies");
         myRef = myRef.child(lobbyName);
         myRef = myRef.child(user.getUsername());
@@ -213,6 +224,7 @@ public class Quiz extends AppCompatActivity{
         myRef = database.getReference("lobbies");
         myRef = myRef.child(lobbyName);
 
+        //15 second countdown till displaying answer (back-side of card)
         CountDownTimer cdt = new CountDownTimer(15000, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
@@ -221,6 +233,7 @@ public class Quiz extends AppCompatActivity{
 
             @Override
             public void onFinish() {
+                //Update database to have back of card showing and user answers stored
                 card.setText(currentCard.getBack());
                 myRef = database.getReference("lobbies");
                 myRef = myRef.child(lobbyName);
@@ -233,6 +246,7 @@ public class Quiz extends AppCompatActivity{
                 myRef = database.getReference("lobbies");
                 myRef = myRef.child(lobbyName);
 
+                //10 second countdown till moving on to the next card
                 CountDownTimer countdowntimer = new CountDownTimer(10000, 1000) {
                     @Override
                     public void onTick(long millisUntilFinished) {
@@ -240,6 +254,7 @@ public class Quiz extends AppCompatActivity{
                     }
 
                     @Override
+                    //repeat until out of cards
                     public void onFinish() {
                         count--;
                         if(count>0){
@@ -254,6 +269,7 @@ public class Quiz extends AppCompatActivity{
         }.start();
     }
 
+    //same functionality as leaveQuiz button, exits the quiz
     protected void exitQuiz(){
 
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(Quiz.this);
@@ -278,6 +294,7 @@ public class Quiz extends AppCompatActivity{
 
 
     @Override
+    //same functionality as leaveQuiz button, exits the quiz
     public void onBackPressed() {
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(Quiz.this);
         alertDialog.setTitle("Leave Lobby");

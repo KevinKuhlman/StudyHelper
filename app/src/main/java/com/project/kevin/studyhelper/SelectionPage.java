@@ -11,6 +11,7 @@ import android.widget.TextView;
  * Created by Kevin on 4/24/2017.
  */
 
+//Pick between studying by yourself or studying as a group
 public class SelectionPage extends AppCompatActivity {
 
     @Override
@@ -24,6 +25,7 @@ public class SelectionPage extends AppCompatActivity {
         TextView welcome = (TextView) findViewById(R.id.welcome);
         welcome.setText("Welcome " + user.getUsername());
 
+        //switch to StudySolo display
         Button studySoloButton = (Button) findViewById(R.id.studySoloButton);
         studySoloButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -34,6 +36,7 @@ public class SelectionPage extends AppCompatActivity {
             }
         });
 
+        //switch to GroupStudy display
         Button groupStudyButton = (Button) findViewById(R.id.groupStudyButton);
         groupStudyButton.setOnClickListener(new View.OnClickListener() {
             @Override

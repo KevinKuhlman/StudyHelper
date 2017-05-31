@@ -28,6 +28,7 @@ import java.util.Map;
  * Created by Kevin on 4/24/2017.
  */
 
+//Lobby instance, allow multiple users to interact
 public class Lobby extends AppCompatActivity {
 
     private FirebaseDatabase database;
@@ -63,6 +64,8 @@ public class Lobby extends AppCompatActivity {
         TextView textView = (TextView) findViewById(R.id.lobbyName);
         textView.setText(lobbyName);
 
+        //listener to re-generate lobby every time a change is made to it
+        //initialized explicitly to allow it to be deleted later
         listener = myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -85,6 +88,7 @@ public class Lobby extends AppCompatActivity {
         leaveLobby = (Button) findViewById(R.id.leaveLobby);
         readyButton = (Button) findViewById(R.id.readyButton);
 
+        //Loads a stored card set's information when clicked
         loadCardSet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -95,6 +99,7 @@ public class Lobby extends AppCompatActivity {
                     items[i] = user.getCardSets().get(i).getName();
                 }
 
+                //alert dialog of all created card sets for the user
                 AlertDialog.Builder builder = new AlertDialog.Builder(Lobby.this);
                 builder.setTitle("Choose Card Set to Load");
                 builder.setItems(items, new DialogInterface.OnClickListener() {
@@ -102,9 +107,11 @@ public class Lobby extends AppCompatActivity {
 
                         CardSet tempCardSet = user.getCardSets().get(item);
                         for(int i = 0; i<usersData.size(); i++){
+                            //override the stored card set value in usersData
                             if(usersData.get(i).getUsername() == user.getUsername()){
 
                                 usersData.get(i).setCardSetName(tempCardSet.getName());
+                                //writes the chosen card set into the database
                                 myRef = database.getReference("lobbies");
                                 myRef = myRef.child(lobbyName);
                                 myRef = myRef.child(user.getUsername()).child("chosenCardSet");
@@ -123,6 +130,7 @@ public class Lobby extends AppCompatActivity {
             }
         });
 
+        //exits lobby
         leaveLobby.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -133,10 +141,12 @@ public class Lobby extends AppCompatActivity {
                 alertDialog.setPositiveButton("Leave", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
 
+                        //delete user from the current lobby
                         myRef = database.getReference("lobbies");
                         myRef = myRef.child(lobbyName);
                         myRef.child(user.getUsername()).removeValue();
 
+                        //return to GroupStudy - No back issues as Lobby has no history tracking
                         Intent myIntent = new Intent(getApplicationContext(), GroupStudy.class);
                         myIntent.putExtra("User", user);
                         startActivityForResult(myIntent, 0);
@@ -151,6 +161,7 @@ public class Lobby extends AppCompatActivity {
             }
         });
 
+        //Sets user status to ready, stores in database
         readyButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -167,10 +178,14 @@ public class Lobby extends AppCompatActivity {
         });
     }
 
+    //creates lobby based on database information
     protected void generateLobby(DataSnapshot dataSnapshot){
 
         for(DataSnapshot ds : dataSnapshot.getChildren()){
+            //checks for chosenCardSet, would sometimes break after leaving/rejoining lobby
+            //if it did not check first
             if(ds.hasChild("chosenCardSet")){
+                //get database values to put into ListInfo
                 String username = ds.child("username").getValue().toString();
                 String cardSet = ds.child("chosenCardSet").getValue().toString();
                 String ready = "false";
@@ -178,12 +193,14 @@ public class Lobby extends AppCompatActivity {
                     ready = ds.child("ready").getValue().toString();
                 }
 
+                //Checks if the list of ListInfos already has this user
                 boolean check = true;
                 for(int i = 0; i<usersData.size(); i++){
                     if(usersData.get(i).getUsername().equals(username)){
                         check = false;
                     }
                 }
+                //adds a new listinfo to the list if it doesnt already exist
                 if(check){
                     if(ready.equals("true")){
                         usersData.add(new ListInfo(username, cardSet, true));
@@ -201,8 +218,10 @@ public class Lobby extends AppCompatActivity {
 
     }
 
+    //maps user to the database - all values
     protected void mapUser(){
 
+        //adds basic user info
         Map<String, String> newUser = new HashMap<String, String>();
         newUser.put("username", user.getUsername());
         newUser.put("password", user.getPassword());
@@ -211,6 +230,7 @@ public class Lobby extends AppCompatActivity {
         myRef = myRef.child(user.getUsername());
         myRef.setValue(newUser);
 
+        //adds all card sets
         for(int i = 0; i<user.getCardSets().size(); i++){
             CardSet tempCardSet = user.getCardSets().get(i);
             myRef = myRef.child("card_sets").child(tempCardSet.getName());
@@ -229,6 +249,7 @@ public class Lobby extends AppCompatActivity {
 
     }
 
+    //updates the list view with new ListInfo items
     protected void updateListView(){
         userArrayAdapter = new UserArrayAdapter(this, R.layout.user_item, usersData);
         listView.setAdapter(userArrayAdapter);
@@ -236,6 +257,8 @@ public class Lobby extends AppCompatActivity {
     }
 
     @Override
+    //overrides on back pressed to ensure they want to leave and to delete database info if so
+    //same functionality as the leave lobby button
     public void onBackPressed() {
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(Lobby.this);
         alertDialog.setTitle("Leave Lobby");
@@ -260,6 +283,7 @@ public class Lobby extends AppCompatActivity {
         alertDialog.show();
     }
 
+    //checks if all users in the list are ready
     public void checkListView(){
 
         boolean check = true;
@@ -278,6 +302,7 @@ public class Lobby extends AppCompatActivity {
         }
     }
 
+    //if all users are ready, countdown to Quiz
     public void beginCountdown(){
 
         readyButton.setEnabled(false);
@@ -285,6 +310,7 @@ public class Lobby extends AppCompatActivity {
         loadCardSet.setEnabled(false);
 
         boolean check = false;
+        //check to make sure at least one card set has been selected
         for(int i = 0; i<usersData.size(); i++){
             if(!usersData.get(i).getCardSetName().equals("")){
                 check = true;
@@ -295,6 +321,7 @@ public class Lobby extends AppCompatActivity {
 
             final TextView status = (TextView) findViewById(R.id.status);
 
+            //countdown till transfer
             CountDownTimer cdt = new CountDownTimer(6000, 1000) {
                 @Override
                 public void onTick(long millisUntilFinished) {
@@ -312,6 +339,7 @@ public class Lobby extends AppCompatActivity {
             }.start();
         }else{
 
+            //return to previous status if no card sets have been selected
             readyButton.setEnabled(true);
             leaveLobby.setEnabled(true);
             loadCardSet.setEnabled(true);

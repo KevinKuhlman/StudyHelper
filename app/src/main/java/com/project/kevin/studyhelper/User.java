@@ -9,6 +9,7 @@ import java.util.ArrayList;
 
 @SuppressWarnings("serial")
 
+//User object, holds a list of cardSets that they have made
 public class User implements Serializable {
 
     private String username;

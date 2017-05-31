@@ -4,6 +4,7 @@ package com.project.kevin.studyhelper;
  * Created by Kevin on 5/28/2017.
  */
 
+//User info for displaying in the Quiz's ListView
 public class QuizInfo {
 
     String username;

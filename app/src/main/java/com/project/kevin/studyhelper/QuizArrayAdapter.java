@@ -12,6 +12,8 @@ import java.util.List;
 /**
  * Created by Kevin on 5/28/2017.
  */
+
+//Adapts user info for the Quiz's ListView
 public class QuizArrayAdapter extends ArrayAdapter<QuizInfo> {
 
     private Context context;

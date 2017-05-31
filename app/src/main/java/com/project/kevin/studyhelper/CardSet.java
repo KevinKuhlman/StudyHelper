@@ -7,6 +7,8 @@ import java.util.ArrayList;
  * Created by Kevin on 5/7/2017.
  */
 
+
+//Card Set object - has a name to differentiate sets and a list of cards
 public class CardSet implements Serializable {
 
 

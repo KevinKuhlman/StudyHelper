@@ -14,6 +14,7 @@ import java.util.List;
  * Created by Kevin on 5/22/2017.
  */
 
+//Adapter for the ListView within the Lobby class
 public class UserArrayAdapter extends ArrayAdapter<ListInfo> {
 
     private Context context;
